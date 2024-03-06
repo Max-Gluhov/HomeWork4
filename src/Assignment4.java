@@ -79,7 +79,7 @@ public class Assignment4 {
 		// Profit if current item is included
 		double current_profit = value[i] + KnapsackProb(capacity - volume[i], value, volume, i + 1, profit + value[i]);
 		// Profit if current item is excluded
-		double next_profit = KnapsackProb(capacity, value, volume, i + 1, current_profit);
+		double next_profit = KnapsackProb(capacity, value, volume, i + 1, profit);
 
 		// Return maximum between the profits
 		if (current_profit > next_profit)
