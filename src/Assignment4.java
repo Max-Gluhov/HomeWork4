@@ -20,7 +20,7 @@ public class Assignment4 {
 			return;
 		case 1:// Aviyam
 			break;
-		case 2:// Max
+		case 2:// Max. Knapsack problem
 			int product_numbers;
 			double capacity, max_profit;
 			double[] value, volume;
@@ -54,7 +54,16 @@ public class Assignment4 {
 			break;
 		case 3:// Aviyam
 			break;
-		case 4:// Max
+		case 4:// Max. Merge two alphabetized strings into one alphabetized string
+			String first, second, merge;
+
+			System.out.print("Enter first string> ");
+			first = sc.next();
+			System.out.print("Enter second string> ");
+			second = sc.next();
+
+			merge = mergeStrings(first, second);
+			System.out.println("The new string is: " + merge);
 			break;
 		default:
 			System.out.println("Wrong input");
@@ -85,5 +94,21 @@ public class Assignment4 {
 		if (current_profit > next_profit)
 			return current_profit;
 		return next_profit;
+	}
+
+	// Recursive method to merge two alphabetized strings into one alphabetized
+	// string
+	public static String mergeStrings(String first, String second) {
+		// If one string is empty, then return the other string
+		if (first.isEmpty())
+			return second;
+		if (second.isEmpty())
+			return first;
+
+		// Take the letter that is smaller alphabetically
+		// Concat recursively with the strings without that letter
+		if (first.charAt(0) < second.charAt(0))
+			return first.charAt(0) + mergeStrings(first.substring(1), second);
+		return second.charAt(0) + mergeStrings(first, second.substring(1));
 	}
 }
