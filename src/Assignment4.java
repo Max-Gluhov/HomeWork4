@@ -18,7 +18,10 @@ public class Assignment4 {
 		case 0:
 			System.out.println("End program");
 			return;
-		case 1:// Aviyam-0000000
+		case 1:// Aviyam.  No Caps
+			System.out.println("Enter a String");
+			String string1=sc.next();
+			System.out.println(NoCaps(string1));
 			break;
 		case 2:// Max. Knapsack problem
 			int product_numbers;
@@ -70,7 +73,27 @@ public class Assignment4 {
 		}
 		mainMenu();
 	}
+	
+	public static String NoCaps(String str) // Recursive method that create a new string that contain only lowercases.
+	{
+		String NewS="";
+		if(str.length()==0) 
+		{
 
+			return ""; 
+		}
+		if(str.length()>0) 
+		{
+			if(((str.charAt(str.length()-1))>='a')&&(str.charAt(str.length()-1)-96)<='z')//check if the char is a lowercase.
+			{
+				return(NoCaps(str.substring(0, str.length()-1))+(NewS+=str.charAt(str.length()-1))); //add the char to the new string.
+			}
+			else
+				return NoCaps(str.substring(0, str.length()-1));
+		}
+		return NewS;
+	}
+	
 	// Wrapper method for recursive KnapsackProb
 	public static double KnapsackProb(double capacity, double[] value, double[] volume) {
 		return KnapsackProb(capacity, value, volume, 0, 0);
