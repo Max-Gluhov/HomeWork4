@@ -18,7 +18,7 @@ public class Assignment4 {
 		case 0:
 			System.out.println("End program");
 			return;
-		case 1:// Aviyam
+		case 1:// Aviyam-0000000
 			break;
 		case 2:// Max. Knapsack problem
 			int product_numbers;
