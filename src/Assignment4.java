@@ -19,9 +19,9 @@ public class Assignment4 {
 			System.out.println("End program");
 			return;
 		case 1:// Aviyam.  No Caps
-			System.out.println("Enter a String");
+			System.out.print("Enter a String> ");
 			String string1=sc.next();
-			System.out.println(NoCaps(string1));
+			System.out.println("The new String is: "+NoCaps(string1));
 			break;
 		case 2:// Max. Knapsack problem
 			int product_numbers;
@@ -56,6 +56,26 @@ public class Assignment4 {
 			System.out.println("The max profit is = " + max_profit);
 			break;
 		case 3:// Aviyam
+			System.out.print("Enter the power> ");
+			int power=sc.nextInt();
+			if(power<1)
+			{
+				System.out.println("Wrong input");
+				break;
+			}
+			System.out.print("Enter the sum> ");
+			int sum=sc.nextInt();
+			if(sum<1)
+			{
+				System.out.println("Wrong input");
+				break;
+			}
+			System.out.println("The number of powered n sums is: "+CountWays(power,sum));
+
+
+
+
+
 			break;
 		case 4:// Max. Merge two alphabetized strings into one alphabetized string
 			String first, second, merge;
@@ -73,7 +93,7 @@ public class Assignment4 {
 		}
 		mainMenu();
 	}
-	
+
 	public static String NoCaps(String str) // Recursive method that create a new string that contain only lowercases.
 	{
 		String NewS="";
@@ -93,7 +113,7 @@ public class Assignment4 {
 		}
 		return NewS;
 	}
-	
+
 	// Wrapper method for recursive KnapsackProb
 	public static double KnapsackProb(double capacity, double[] value, double[] volume) {
 		return KnapsackProb(capacity, value, volume, 0, 0);
@@ -117,6 +137,40 @@ public class Assignment4 {
 		if (current_profit > next_profit)
 			return current_profit;
 		return next_profit;
+	}
+
+	public static int CountWays(int power,int sum) //Wrapper method for recursive  Count Ways
+	{
+		int counter=0;
+		int num=(int)Math.pow(sum,((double)1/power));//the biggest square root of the sum.
+		if(sum==1)
+			return 1;
+		if(Math.pow(num, power)==sum) //if the square is whole number, add 1 to counter . 
+		{	
+			num-=1;//the origin num checked, so the function don't need to check it.
+			counter++;
+		}
+		return countWaysUtil( power, sum,  num)+counter;
+		
+	}
+	public static int countWaysUtil(int power,int sum, int num)// Recursive method to solve Count Ways problem
+	{
+		int FirOption,SecOption;
+		int NumInPow=(int)Math.pow(num, power);
+		int NewNum=(int)Math.pow((sum-NumInPow),((double)1/power));//update the value of num.
+		if(num==NewNum)//don't wont to use same number again.
+			NewNum-=1;
+
+		if(((num==1)&&(sum!=1))||(NewNum>num))//
+			return 0;
+		if(NumInPow==sum)//the sum of the numbers that checked equal to the origin sum.
+			return 1;
+		
+		FirOption=countWaysUtil( power,(sum-NumInPow),NewNum);//substance the current num in power from the origin sum and update the value of num. 
+		SecOption=countWaysUtil( power, sum,  num-1);
+		return FirOption+SecOption;
+
+
 	}
 
 	// Recursive method to merge two alphabetized strings into one alphabetized
