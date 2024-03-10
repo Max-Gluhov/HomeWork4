@@ -15,13 +15,13 @@ public class Assignment4 {
 		user_input = sc.nextInt();
 
 		switch (user_input) {
-		case 0:
+		case 0:// Exit program
 			System.out.println("End program");
 			return;
-		case 1:// Aviyam.  No Caps
+		case 1:// Aviyam. No Caps
 			System.out.print("Enter a String> ");
-			String string1=sc.next();
-			System.out.println("The new String is: "+NoCaps(string1));
+			String string1 = sc.next();
+			System.out.println("The new String is: " + NoCaps(string1));
 			break;
 		case 2:// Max. Knapsack problem
 			int product_numbers;
@@ -57,25 +57,19 @@ public class Assignment4 {
 			break;
 		case 3:// Aviyam
 			System.out.print("Enter the power> ");
-			int power=sc.nextInt();
-			if(power<1)
-			{
+			int power = sc.nextInt();
+			if (power < 1) {
 				System.out.println("Wrong input");
 				break;
 			}
 			System.out.print("Enter the sum> ");
-			int sum=sc.nextInt();
-			if(sum<1)
-			{
+			int sum = sc.nextInt();
+			if (sum < 1) {
 				System.out.println("Wrong input");
 				break;
 			}
-			System.out.println("The number of powered n sums is: "+CountWays(power,sum));
 
-
-
-
-
+			System.out.println("The number of powered n sums is: " + CountWays(power, sum));
 			break;
 		case 4:// Max. Merge two alphabetized strings into one alphabetized string
 			String first, second, merge;
@@ -94,22 +88,19 @@ public class Assignment4 {
 		mainMenu();
 	}
 
-	public static String NoCaps(String str) // Recursive method that create a new string that contain only lowercases.
-	{
-		String NewS="";
-		if(str.length()==0) 
-		{
-
-			return ""; 
+	// Recursive method that create a new string that contain only lowercases.
+	public static String NoCaps(String str) {
+		String NewS = "";
+		if (str.length() == 0) {
+			return "";
 		}
-		if(str.length()>0) 
-		{
-			if(((str.charAt(str.length()-1))>='a')&&(str.charAt(str.length()-1)-96)<='z')//check if the char is a lowercase.
-			{
-				return(NoCaps(str.substring(0, str.length()-1))+(NewS+=str.charAt(str.length()-1))); //add the char to the new string.
-			}
-			else
-				return NoCaps(str.substring(0, str.length()-1));
+		if (str.length() > 0) {
+			// check if the char is a lowercase.
+			if (((str.charAt(str.length() - 1)) >= 'a') && (str.charAt(str.length() - 1)) <= 'z') {
+				// add the char to the new string.
+				return (NoCaps(str.substring(0, str.length() - 1)) + (NewS += str.charAt(str.length() - 1)));
+			} else
+				return NoCaps(str.substring(0, str.length() - 1));
 		}
 		return NewS;
 	}
@@ -139,42 +130,49 @@ public class Assignment4 {
 		return next_profit;
 	}
 
-	public static int CountWays(int power,int sum) //Wrapper method for recursive  Count Ways
-	{
-		int counter=0;
-		int num=(int)Math.pow(sum,((double)1/power));//the biggest square root of the sum.
-		if(sum==1)
+	// Wrapper method for recursive Count Ways
+	public static int CountWays(int power, int sum) {
+		int counter = 0;
+		// the biggest square root of the sum.
+		int num = (int) Math.pow(sum, ((double) 1 / power));
+		if (sum == 1)
 			return 1;
-		if(Math.pow(num, power)==sum) //if the square is whole number, add 1 to counter . 
-		{	
-			num-=1;//the origin num checked, so the function don't need to check it.
+		// if the square is whole number, add 1 to counter .
+		if (Math.pow(num, power) == sum) {
+			// the origin num checked, so the function don't need to check it.
+			num -= 1;
 			counter++;
 		}
-		return countWaysUtil( power, sum,  num)+counter;
-		
-	}
-	public static int countWaysUtil(int power,int sum, int num)// Recursive method to solve Count Ways problem
-	{
-		int FirOption,SecOption;
-		int NumInPow=(int)Math.pow(num, power);
-		int NewNum=(int)Math.pow((sum-NumInPow),((double)1/power));//update the value of num.
-		if(num==NewNum)//don't wont to use same number again.
-			NewNum-=1;
+		return countWaysUtil(power, sum, num) + counter;
 
-		if(((num==1)&&(sum!=1))||(NewNum>num))//
+	}
+
+	// Recursive method to solve Count Ways problem
+	public static int countWaysUtil(int power, int sum, int num) {
+		int FirOption, SecOption;
+		int NumInPow = (int) Math.pow(num, power);
+		// update the value of num.
+		int NewNum = (int) Math.pow((sum - NumInPow), ((double) 1 / power));
+		// don't want to use same number again.
+		if (num == NewNum)
+			NewNum -= 1;
+
+		if (((num == 1) && (sum != 1)) || (NewNum > num))
 			return 0;
-		if(NumInPow==sum)//the sum of the numbers that checked equal to the origin sum.
+		// the sum of the numbers that checked equal to the origin sum.
+		if (NumInPow == sum)
 			return 1;
-		
-		FirOption=countWaysUtil( power,(sum-NumInPow),NewNum);//substance the current num in power from the origin sum and update the value of num. 
-		SecOption=countWaysUtil( power, sum,  num-1);
-		return FirOption+SecOption;
 
+		// substance the current num in power from the origin
+		// sum and update the value of num.
+		FirOption = countWaysUtil(power, (sum - NumInPow), NewNum);
+		SecOption = countWaysUtil(power, sum, num - 1);
+		return FirOption + SecOption;
 
 	}
 
-	// Recursive method to merge two alphabetized strings into one alphabetized
-	// string
+	// Recursive method to merge two alphabetized strings
+	// into one alphabetized string
 	public static String mergeStrings(String first, String second) {
 		// If one string is empty, then return the other string
 		if (first.isEmpty())
