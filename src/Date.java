@@ -4,79 +4,77 @@ public class Date {
 	private int month;
 	private int year;
 
-	public Date()
-	{
-		this.day=1;
-		this.month=1;
-		this.year=0;
+	public Date() {
+		this(1, 1, 0);
 	}
-	public Date(int day,int month,int year) 
-	{
-		if(((day>0)&&(day<=30))&&((month>0)&&(month<=12))&&(year>0)&&(year<=2024))
-		{
-			this.day=day;
-			this.month=month;
-			this.year=year;
+
+	public Date(int day, int month, int year) {
+		if (((day > 0) && (day <= 30)) && ((month > 0) && (month <= 12)) && (year > 0) && (year <= 2024)) {
+			this.day = day;
+			this.month = month;
+			this.year = year;
+		} else {
+			this.day = 1;
+			this.month = 1;
+			this.year = 0;
 		}
-		
 	}
-	public int getDay()
-	{
+
+	public int getDay() {
 		return this.day;
 	}
-	public void setDay(int day)
-	{
-		if((day>0)&&(day<=30))
-			this.day=day;
+
+	public void setDay(int day) {
+		if ((day > 0) && (day <= 30))
+			this.day = day;
 	}
-	public int getMonth()
-	{
+
+	public int getMonth() {
 		return this.month;
 	}
-	public void setMonth(int month)
-	{
-		if((month>0)&&(month<=12))
-			this.month=month;
+
+	public void setMonth(int month) {
+		if ((month > 0) && (month <= 12))
+			this.month = month;
 	}
-	public int getYear()
-	{
+
+	public int getYear() {
 		return this.year;
 	}
-	public void setYear(int year)
-	{
-		if((year>0)&&(year<=2024))
-			this.year=year;
+
+	public void setYear(int year) {
+		if ((year > 0) && (year <= 2024))
+			this.year = year;
 	}
-	public int[] dateDist(Date other)
-	{
-		int[]dateDist=new int[3];
-		dateDist[0]=this.day-other.day;
-		if(dateDist[0]<0)
-		{
-			dateDist[0]+=30;
+
+	public int[] dateDist(Date other) {
+		int[] dateDist = new int[3];
+		dateDist[0] = this.day - other.getDay();
+		// Check month underflow
+		if (dateDist[0] < 0) {
+			dateDist[0] += 30;
 			dateDist[1]--;
 		}
-		dateDist[1]+=(this.month-other.month);
-		if(dateDist[1]<0) 
-		{
-			dateDist[1]+=12;
+		dateDist[1] += (this.month - other.getMonth());
+		// Check year underflow
+		if (dateDist[1] < 0) {
+			dateDist[1] += 12;
 			dateDist[2]--;
 		}
-		dateDist[2]+=(this.year-other.year);
+		dateDist[2] += (this.year - other.getYear());
 		return dateDist;
 	}
-	public static Date CurDate=new Date(1,1,2024);
-	public int calcAge() 
-	{
-		int[]Dist=this.dateDist(CurDate);
+
+	public int calcAge() {
+		Date currDate = new Date(1, 1, 2024);
+		int[] Dist = currDate.dateDist(this);
 		return Dist[2];
 	}
-	public String toString()
-	{
-		String PrintDate=this.day+"/"+this.month+"/"+this.year;
-		return PrintDate;
+
+	public String toString() {
+		String printDate = this.day + "/" + this.month + "/" + this.year;
+		return printDate;
 
 	}
-
 
 }
